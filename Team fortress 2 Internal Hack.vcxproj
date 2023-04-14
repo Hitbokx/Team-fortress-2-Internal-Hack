@@ -145,6 +145,20 @@
   <ItemGroup>
     <ClCompile Include="DLLMain.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="BunnyHop.h" />
+    <ClInclude Include="Classes.h" />
+    <ClInclude Include="HookingClass.h" />
+    <ClInclude Include="Includes.h" />
+    <ClInclude Include="ProgramLogic.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</DeploymentContent>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
+      <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
+    </ClInclude>
+    <ClInclude Include="Structs.h" />
+    <ClInclude Include="TriggerBot.h" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
