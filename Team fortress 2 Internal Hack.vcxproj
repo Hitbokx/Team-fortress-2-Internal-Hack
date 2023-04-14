@@ -148,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="BunnyHop.h" />
     <ClInclude Include="Classes.h" />
+    <ClInclude Include="Glow.h" />
     <ClInclude Include="HookingClass.h" />
     <ClInclude Include="Includes.h" />
     <ClInclude Include="ProgramLogic.h">

@@ -41,5 +41,8 @@
     <ClInclude Include="TriggerBot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Glow.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

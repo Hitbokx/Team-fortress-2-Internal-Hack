@@ -4,3 +4,4 @@
 #include "TriggerBot.h"
 #include "Structs.h"
 #include "Classes.h"
+#include "Glow.h"
