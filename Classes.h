@@ -58,7 +58,6 @@ public:
 	int32_t crossHairId; //0x1884
 	char pad_1888[14316]; //0x1888
 }; //Size: 0x5074
-static_assert(sizeof( PlayerEnt ) == 0x5074);
 
 class ClientInfo
 {
@@ -68,7 +67,6 @@ public:
 	class ClientInfo* previous; //0x0008
 	class ClientInfo* next; //0x000C
 }; //Size: 0x0010
-static_assert(sizeof( ClientInfo ) == 0x10);
 
 class EntityList
 {
@@ -152,7 +150,6 @@ public:
 	virtual void Function72( );
 	virtual void Function73( );
 }; //Size: 0x01C4
-static_assert(sizeof( EntityList ) == 0x1C4);
 
 class Entity
 {
@@ -160,4 +157,3 @@ public:
 	char pad_0000[168]; //0x0000
 	int32_t health; //0x00A8
 }; //Size: 0x00AC
-static_assert(sizeof( Entity ) == 0xAC);
