@@ -2,13 +2,7 @@
 
 #include <iostream>
 #include <Windows.h>
-
-struct Vector3
-{
-	float x{};
-	float y{};
-	float z{};
-};
+#include "structs.h"
 
 class PlayerEnt
 {

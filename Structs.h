@@ -11,7 +11,16 @@ struct offsets_t
 	uintptr_t fAttack{ 0xC8F7CC };
 	uintptr_t crossHairId{ 0x1884 };
 	uintptr_t numPlayers{ 0x5DBE44 };
+	uintptr_t dwGlowObjectManager{ 0xBE0890 };
+	//uintptr_t RegisterGlowObject{ 0x198CE0 };
 
+	uintptr_t glowIndex{ 0x9AC };
+};
+
+struct ModuleBases
+{
+	uintptr_t cModuleBase{ (uintptr_t)GetModuleHandle( L"client.dll" ) };
+	uintptr_t eModuleBase{ (uintptr_t)GetModuleHandle( L"engine.dll" ) };
 };
 
 struct bools_t
@@ -47,6 +56,20 @@ struct ForceMask_t
 {
 	const unsigned int jump{ 0b0000'0001 };
 	const unsigned int attack{ 0b0000'0001 };
+};
+
+struct Vector3Colour
+{
+	float red{};
+	float green{};
+	float blue{};
+};
+
+struct Vector3
+{
+	float x{};
+	float y{};
+	float z{};
 };
 
 inline offsets_t offs{};
