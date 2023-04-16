@@ -64,7 +64,7 @@ void Run( uintptr_t cModuleBase, uintptr_t eModuleBase )
 				TriggerBot( pLocalPlayer, cModuleBase, pEntList, numPlayers );
 
 			if ( bools.bGlowHack )
-				Glow( );
+				Glow( cModuleBase, pEntList );
 		}
 	}
 }
