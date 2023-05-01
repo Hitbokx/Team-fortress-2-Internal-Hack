@@ -5,3 +5,4 @@
 #include "Structs.h"
 #include "Classes.h"
 #include "Glow.h"
+#include "HookingClass.h"

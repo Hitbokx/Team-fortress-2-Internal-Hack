@@ -66,5 +66,6 @@ void Run( uintptr_t cModuleBase, uintptr_t eModuleBase )
 			if ( bools.bGlowHack )
 				Glow( cModuleBase, pEntList, pLocalPlayer );
 		}
+		Sleep( 1 );
 	}
 }

@@ -159,6 +159,7 @@
     </ClInclude>
     <ClInclude Include="Structs.h" />
     <ClInclude Include="TriggerBot.h" />
+    <ClInclude Include="vector.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

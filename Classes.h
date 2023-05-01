@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <Windows.h>
+#include "vector.h"
 #include "structs.h"
 
 class PlayerEnt
@@ -24,18 +25,24 @@ public:
 	char pad_02A4[192]; //0x02A4
 	Vector3 playerCoordinates; //0x0364
 	char pad_0370[12]; //0x0370
-	unsigned int flag; //0x037C
+	uint32_t flag; //0x037C
 	char pad_0380[660]; //0x0380
-	uint32_t flag2; //0x0614
-	char pad_0618[728]; //0x0618
-	Vector3 gunCrossHair; //0x08F0
-	char pad_08FC[896]; //0x08FC
+	int32_t flag2; //0x0614
+	char pad_0618[760]; //0x0618
+	Vector3 gunCrossHair; //0x0910
+	char pad_091C[864]; //0x091C
 	int32_t primaryAmmoMag; //0x0C7C
 	int32_t secondaryAmmoMag; //0x0C80
 	char pad_0C84[40]; //0x0C84
 	Vector3 N00000B51; //0x0CAC
 	Vector3 N00000B52; //0x0CB8
-	char pad_0CC4[436]; //0x0CC4
+	char pad_0CC4[248]; //0x0CC4
+	bool specGlowEnabled; //0x0DBC
+	bool glowEnabled; //0x0DBD
+	bool boldGlowEnabled; //0x0DBE
+	char pad_0DBF[1]; //0x0DBF
+	int32_t glowIndex; //0x0DC0
+	char pad_0DC4[180]; //0x0DC4
 	uint32_t commandFlags; //0x0E78
 	char pad_0E7C[732]; //0x0E7C
 	float onTarget; //0x1158
@@ -151,3 +158,21 @@ public:
 	char pad_0000[168]; //0x0000
 	int32_t health; //0x00A8
 }; //Size: 0x00AC
+
+struct GlowObjectDefinition_t
+{
+	int base;
+	Vector3 m_vGlowColor;
+	float m_flGlowAlpha;
+	bool m_bRenderWhenOccluded;
+	bool m_bRenderWhenUnoccluded;
+	int m_nSplitScreenSlot;
+	int m_nNextFreeSlot;
+};
+
+class CGlowObjectManager
+{
+public:
+	CUtlVector<GlowObjectDefinition_t> m_GlowObjectDefinitions;
+	int m_nFirstFreeSlot;
+};

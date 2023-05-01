@@ -1,33 +1,78 @@
 #pragma once
 #include <vector>
 #include "structs.h"
-ModuleBases mBase{};
 
-using RegisterGlowObject_t = int( __thiscall* )(void*, PlayerEnt*, const Vector3Colour&, float, bool, bool, int);
+#define END_OF_FREE_LIST -1
+#define ENTRY_IN_USE -2
 
-RegisterGlowObject_t RegisterGlowObject{ (RegisterGlowObject_t)(mBase.cModuleBase + 0x198CE0) };
+void setTeamColour( GlowObjectDefinition_t& glowObject )
+{
+	glowObject.m_vGlowColor = Vector3( 0.f, 0.f, 1.f );
+	glowObject.m_flGlowAlpha = 1.7f;
+}
+
+void setEnemyColour( GlowObjectDefinition_t& glowObject )
+{
+	glowObject.m_vGlowColor = Vector3( 1.f, 0.f, 0.f );
+	glowObject.m_flGlowAlpha = 1.7f;
+}
 
 void Glow(uintptr_t cModuleBase, EntityList* pEntList, PlayerEnt* pLocalPlayer )
 {
-	//Vector3 tColour{ 0,0,2 };
-	//Vector3 EColour{ 2,0,0 };
-	uintptr_t glowObject{ (uintptr_t)(cModuleBase + offs.dwGlowObjectManager) };
-	std::vector<int> glowIndex{};
-	int i{ 0 };
+	CGlowObjectManager* glowobjectManager{ (CGlowObjectManager*)(cModuleBase + offs.dwGlowObjectManager) };
+
+	char entity{ 0 };
 
 	for ( const auto& ent : pEntList->EntList )
 	{
+		
 		if ( ent.entPtr )
 		{
+			ent.entPtr->specGlowEnabled = true;
+			ent.entPtr->glowEnabled = true;
+			ent.entPtr->boldGlowEnabled = false;
+
 			if ( ent.entPtr->team == pLocalPlayer->team )
 			{
-				RegisterGlowObject( (void*)glowObject, ent.entPtr, { 0,0,2 }, 1.7, true, false, -1 );
+
 			}
+
 			else
 			{
-				RegisterGlowObject( (void*)glowObject, ent.entPtr, { 2,0,0 }, 1.7, true, false, -1 );
+				entity = 'e';
 			}
-			++i;
 		}
 	}
+
+	for ( int index = 0; index < glowobjectManager->m_GlowObjectDefinitions.m_Size; index++ )
+	{
+		GlowObjectDefinition_t& glowobject = glowobjectManager->m_GlowObjectDefinitions[index];
+
+		if ( glowobject.m_nNextFreeSlot != ENTRY_IN_USE )
+			continue;
+
+		if ( entity )
+		{
+			switch ( entity )
+			{
+				case 0: 
+					break;
+
+				case 't':
+					setTeamColour( glowobject );
+					break;
+
+				case 'e':
+					setEnemyColour( glowobject );
+					break;
+
+				default:
+					std::cout << "Error entity!\n";
+					break;
+			}
+
+		}
+		
+	}
+	Sleep( 1 );
 }

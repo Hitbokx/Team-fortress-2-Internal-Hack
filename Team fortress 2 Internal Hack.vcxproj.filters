@@ -32,17 +32,20 @@
     <ClInclude Include="BunnyHop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Includes.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="Structs.h">
-      <Filter>Utilities</Filter>
-    </ClInclude>
     <ClInclude Include="TriggerBot.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Glow.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Structs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vector.h">
+      <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
