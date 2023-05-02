@@ -7,13 +7,13 @@
 
 void setTeamColour( GlowObjectDefinition_t& glowObject )
 {
-	glowObject.m_vGlowColor = Vector3( 0.f, 0.f, 1.f );
+	glowObject.m_vGlowColor = Vector3( 0.f, 0.f, 2.f );
 	glowObject.m_flGlowAlpha = 1.7f;
 }
 
 void setEnemyColour( GlowObjectDefinition_t& glowObject )
 {
-	glowObject.m_vGlowColor = Vector3( 1.f, 0.f, 0.f );
+	glowObject.m_vGlowColor = Vector3( 2.f, 0.f, 0.f );
 	glowObject.m_flGlowAlpha = 1.7f;
 }
 
@@ -21,11 +21,10 @@ void Glow(uintptr_t cModuleBase, EntityList* pEntList, PlayerEnt* pLocalPlayer )
 {
 	CGlowObjectManager* glowobjectManager{ (CGlowObjectManager*)(cModuleBase + offs.dwGlowObjectManager) };
 
-	char entity{ 0 };
+	char entTeam[24]{};
 
-	for ( const auto& ent : pEntList->EntList )
+	/*for ( int i{0}; const auto & ent : pEntList->EntList )
 	{
-		
 		if ( ent.entPtr )
 		{
 			ent.entPtr->specGlowEnabled = true;
@@ -33,46 +32,50 @@ void Glow(uintptr_t cModuleBase, EntityList* pEntList, PlayerEnt* pLocalPlayer )
 			ent.entPtr->boldGlowEnabled = false;
 
 			if ( ent.entPtr->team == pLocalPlayer->team )
-			{
-
-			}
+				entTeam[i] = 't';
 
 			else
-			{
-				entity = 'e';
-			}
+				entTeam[i] = 'e';
 		}
-	}
 
-	for ( int index = 0; index < glowobjectManager->m_GlowObjectDefinitions.m_Size; index++ )
+		++i;
+	}*/
+
+	for ( int index{ 0 }; index < glowobjectManager->m_GlowObjectDefinitions.m_Size; ++index )
 	{
 		GlowObjectDefinition_t& glowobject = glowobjectManager->m_GlowObjectDefinitions[index];
 
 		if ( glowobject.m_nNextFreeSlot != ENTRY_IN_USE )
 			continue;
 
-		if ( entity )
-		{
-			switch ( entity )
-			{
-				case 0: 
-					break;
+		//if ( index < sizeof( entTeam ) )
+		//{
 
-				case 't':
+			if ( (pEntList->EntList[index].entPtr->team) == pLocalPlayer->team )
+				setTeamColour( glowobject );
+
+			else
+				setEnemyColour( glowobject );
+
+			/*	if ( entTeam[index] == 't' )
 					setTeamColour( glowobject );
-					break;
 
-				case 'e':
+				else
 					setEnemyColour( glowobject );
-					break;
-
-				default:
-					std::cout << "Error entity!\n";
-					break;
-			}
-
-		}
-		
+			*/
+		//}
 	}
-	Sleep( 1 );
+}
+
+void unGlow( EntityList* pEntList, PlayerEnt* pLocalPlayer )
+{
+	for ( const auto& ent : pEntList->EntList )
+	{
+		if ( ent.entPtr )
+		{
+			ent.entPtr->specGlowEnabled = false;
+			ent.entPtr->glowEnabled = false;
+			ent.entPtr->boldGlowEnabled = false;
+		}
+	}
 }
