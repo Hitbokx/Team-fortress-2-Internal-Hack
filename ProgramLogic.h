@@ -51,7 +51,7 @@ void Run( uintptr_t cModuleBase, uintptr_t eModuleBase )
 			else
 			{
 				std::cout << "GlowHack Disabled!\n";
-				unGlow( pEntList, pLocalPlayer );
+				unGlow( cModuleBase, pEntList, pLocalPlayer );
 				bools.bGlowHack = !bools.bGlowHack;
 			}
 		}

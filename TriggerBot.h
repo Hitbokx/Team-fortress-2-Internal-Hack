@@ -12,10 +12,10 @@ inline void TriggerBot( PlayerEnt* pLocalPlayer, uintptr_t cModuleBase, EntityLi
 		bools.bShotNow = !bools.bShotNow;
 	}
 
-	if ( (pEntList->EntList[(pLocalPlayer->crossHairId) - 1].entPtr->team) == pLocalPlayer->team )
+	if ( (pEntList->EntList[(pLocalPlayer->crossHairId) - 1].m_pEntity->team) == pLocalPlayer->team )
 		return;
 
-	if ( (pEntList->EntList[(pLocalPlayer->crossHairId) - 1].entPtr->health) <= 0 )
+	if ( (pEntList->EntList[(pLocalPlayer->crossHairId) - 1].m_pEntity->health) <= 0 )
 		return;
 	
 	if ( pLocalPlayer->crossHairId > numPlayers && pLocalPlayer->crossHairId <= 0 )

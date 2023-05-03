@@ -4,13 +4,41 @@
 #include <Windows.h>
 #include "vector.h"
 #include "structs.h"
+#include<assert.h>
+
+#define NUM_ENT_ENTRY_BITS		(MAX_EDICT_BITS + 1)
+#define NUM_ENT_ENTRIES			(1 << NUM_ENT_ENTRY_BITS)
+#define ENT_ENTRY_MASK			(NUM_ENT_ENTRIES - 1)
+#define INVALID_EHANDLE_INDEX	0xFFFFFFFF
+#define NUM_SERIAL_NUM_BITS		(32 - NUM_ENT_ENTRY_BITS)
+
+#define	MAX_EDICT_BITS				11			
+#define	MAX_EDICTS					(1<<MAX_EDICT_BITS)
+
+class CBaseHandle
+{
+public:
+	friend class EntityList;
+
+public:
+
+	int GetEntryIndex( ) const;
+
+	int GetSerialNumber( ) const;
+
+protected:
+
+	unsigned long	m_Index;
+};
 
 class PlayerEnt
 {
 public:
 	char pad_0000[32]; //0x0000
 	Vector3 vecAngles; //0x0020
-	char pad_002C[124]; //0x002C
+	char pad_002C[121]; //0x002C
+	int8_t lifeState; //0x00A5
+	char pad_00A6[2]; //0x00A6
 	int32_t health; //0x00A8
 	char pad_00AC[4]; //0x00AC
 	int32_t team; //0x00B0
@@ -60,20 +88,29 @@ public:
 	char pad_1888[14316]; //0x1888
 }; //Size: 0x5074
 
-class ClientInfo
+class CEntInfo
 {
 public:
-	class PlayerEnt* entPtr; //0x0000
-	int32_t serialNum; //0x0004
-	class ClientInfo* previous; //0x0008
-	class ClientInfo* next; //0x000C
+	class PlayerEnt* m_pEntity; //0x0000
+	int32_t m_SerialNumber; //0x0004
+	class CEntInfo* previous; //0x0008
+	class CEntInfo* next; //0x000C
 }; //Size: 0x0010
+
+CEntInfo m_EntPtrArray[NUM_ENT_ENTRIES];
+
+class Entity
+{
+public:
+	char pad_0000[168]; //0x0000
+	int32_t health; //0x00A8
+}; //Size: 0x00AC
 
 class EntityList
 {
 public:
-	class ClientInfo world; //0x0004
-	class ClientInfo EntList[23]; //0x0014
+	class CEntInfo world; //0x0004
+	class CEntInfo EntList[23]; //0x0014
 	char pad_0184[64]; //0x0184
 
 	virtual void Function0( );
@@ -152,16 +189,19 @@ public:
 	virtual void Function73( );
 }; //Size: 0x01C4
 
-class Entity
+inline int CBaseHandle::GetEntryIndex( ) const
 {
-public:
-	char pad_0000[168]; //0x0000
-	int32_t health; //0x00A8
-}; //Size: 0x00AC
+	return m_Index & ENT_ENTRY_MASK;
+}
+
+inline int CBaseHandle::GetSerialNumber( ) const
+{
+	return m_Index >> NUM_ENT_ENTRY_BITS;
+}
 
 struct GlowObjectDefinition_t
 {
-	int base;
+	CBaseHandle m_hEntity;
 	Vector3 m_vGlowColor;
 	float m_flGlowAlpha;
 	bool m_bRenderWhenOccluded;
