@@ -6,3 +6,5 @@
 #include "Classes.h"
 #include "Glow.h"
 #include "HookingClass.h"
+#include "RecoilControlSystem.h"
+#include "Aimbot.h"

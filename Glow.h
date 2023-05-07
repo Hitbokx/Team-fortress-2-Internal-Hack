@@ -1,5 +1,4 @@
 #pragma once
-#include <vector>
 #include "structs.h"
 
 #define END_OF_FREE_LIST -1

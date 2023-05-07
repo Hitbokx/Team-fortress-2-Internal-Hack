@@ -5,6 +5,7 @@
 struct offsets_t
 {
 	uintptr_t entList{ 0xBDD998 };
+	uintptr_t entList2{ 0xc56474 };
 	uintptr_t localPlayer{ 0xC484F0 };
 	uintptr_t flags{ 0x37C };
 	uintptr_t fJump{ 0xC8F7C0 };
@@ -12,9 +13,9 @@ struct offsets_t
 	uintptr_t crossHairId{ 0x1884 };
 	uintptr_t numPlayers{ 0x5DBE44 };
 	uintptr_t dwGlowObjectManager{ 0xBE0890 };
-	//uintptr_t RegisterGlowObject{ 0x198CE0 };
-
-	uintptr_t glowIndex{ 0x9AC };
+	uintptr_t clientState{ 0x465a58 };
+	uintptr_t ViewAnglesW{ 0x46a5dc };
+	uintptr_t MaxClients{ 0x465d0c };
 };
 
 struct ModuleBases
@@ -29,6 +30,8 @@ struct bools_t
 	bool bTriggerBot{ false };
 	bool bShotNow{ true };
 	bool bGlowHack{ false };
+	bool bRecoil{ false };
+	bool bAimbot{ false };
 };
 
 struct values_t
@@ -63,13 +66,6 @@ struct Vector3Colour
 	float red{};
 	float green{};
 	float blue{};
-};
-
-struct Vector3
-{
-	float x{};
-	float y{};
-	float z{};
 };
 
 inline offsets_t offs{};

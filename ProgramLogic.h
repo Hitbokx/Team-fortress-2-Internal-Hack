@@ -56,6 +56,20 @@ void Run( uintptr_t cModuleBase, uintptr_t eModuleBase )
 			}
 		}
 
+		if ( GetAsyncKeyState( VK_NUMPAD4 ) & 1 )
+		{
+			if ( !bools.bAimbot )
+			{
+				std::cout << "Aimbot Enabled!\n";
+				bools.bAimbot = !bools.bAimbot;
+			}
+			else
+			{
+				std::cout << "Aimbot Disabled!\n";
+				bools.bAimbot = !bools.bAimbot;
+			}
+		}
+
 		if ( pLocalPlayer )
 		{
 			if ( bools.bHop )
@@ -66,7 +80,11 @@ void Run( uintptr_t cModuleBase, uintptr_t eModuleBase )
 
 			if ( bools.bGlowHack )
 				Glow( cModuleBase, pEntList, pLocalPlayer );
+
+			if ( bools.bAimbot )
+				Aimbot( pLocalPlayer, pEntList, numPlayers );
 		}
+
 		Sleep( 1 );
 	}
 }
