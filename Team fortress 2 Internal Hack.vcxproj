@@ -168,7 +168,6 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClInclude>
-    <ClInclude Include="RecoilControlSystem.h" />
     <ClInclude Include="Structs.h" />
     <ClInclude Include="TriggerBot.h" />
     <ClInclude Include="Vector.h" />

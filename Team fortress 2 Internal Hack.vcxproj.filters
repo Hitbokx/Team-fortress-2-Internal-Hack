@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Drawing">
+      <UniqueIdentifier>{05f30ba6-4221-4c87-a8b6-64db846af4b9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DLLMain.cpp">
@@ -38,14 +41,8 @@
     <ClInclude Include="Structs.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Includes.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>Utilities</Filter>
-    </ClInclude>
-    <ClInclude Include="RecoilControlSystem.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Aimbot.h">
       <Filter>Header Files</Filter>
@@ -56,20 +53,23 @@
     <ClInclude Include="FindSig.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="Include.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="dxStuff.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="ESP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dxStuff.h">
+      <Filter>Drawing</Filter>
+    </ClInclude>
     <ClInclude Include="DrawESP.h">
-      <Filter>Header Files</Filter>
+      <Filter>Drawing</Filter>
     </ClInclude>
     <ClInclude Include="Draw.h">
-      <Filter>Header Files</Filter>
+      <Filter>Drawing</Filter>
+    </ClInclude>
+    <ClInclude Include="Include.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Includes.h">
+      <Filter>Utilities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

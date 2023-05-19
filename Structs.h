@@ -50,7 +50,6 @@ struct bools_t
 	bool bTriggerBot{ false };
 	bool bShotNow{ true };
 	bool bGlowHack{ false };
-	bool bRecoil{ false };
 	bool bAimbot{ false };
 	bool bSnapLines{ false };
 };
