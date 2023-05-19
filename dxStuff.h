@@ -33,9 +33,12 @@ inline HWND GetProcessWindow( )
 			directx.window.windowHeight = rect.bottom - rect.top;
 		}
 	}
-	
-	directx.window.windowWidth += 171;
-	directx.window.windowHeight += 138;
+
+	if ( directx.window.windowWidth < 848 && directx.window.windowHeight < 480 )
+	{
+		directx.window.windowWidth += 171;
+		directx.window.windowHeight += 138;
+	}
 
 	return directx.window.hWnd;
 }
