@@ -1,6 +1,25 @@
 #pragma once
 #include <Windows.h>
 #include <bitset>
+#include "FindSig.h"
+#include "Include.h"
+
+struct Window
+{
+	int windowHeight;
+	int windowWidth;
+
+	HWND hWnd;
+};
+
+struct Directx
+{
+	void* d3d9Device[119];
+	void* oEndScene{ nullptr };
+	LPDIRECT3DDEVICE9 pDevice{ nullptr };
+
+	Window window;
+};
 
 struct offsets_t
 {
@@ -16,12 +35,13 @@ struct offsets_t
 	uintptr_t clientState{ 0x465a58 };
 	uintptr_t ViewAnglesW{ 0x46a5dc };
 	uintptr_t MaxClients{ 0x465d0c };
+	uintptr_t dwViewMatrix{ 0x59e9c8 };
 };
 
 struct ModuleBases
 {
-	uintptr_t cModuleBase{ (uintptr_t)GetModuleHandle( L"client.dll" ) };
-	uintptr_t eModuleBase{ (uintptr_t)GetModuleHandle( L"engine.dll" ) };
+	uintptr_t client{ (uintptr_t)GetModuleHandle( L"client.dll" ) };
+	uintptr_t engine{ (uintptr_t)GetModuleHandle( L"engine.dll" ) };
 };
 
 struct bools_t
@@ -32,6 +52,7 @@ struct bools_t
 	bool bGlowHack{ false };
 	bool bRecoil{ false };
 	bool bAimbot{ false };
+	bool bSnapLines{ false };
 };
 
 struct values_t
@@ -73,3 +94,5 @@ inline bools_t bools{};
 inline values_t val{};
 inline FLAG_t FLAG{};
 inline ForceMask_t force{};
+inline ModuleBases modBase{};
+static Directx directx{};

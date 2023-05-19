@@ -1,5 +1,3 @@
-#include <Windows.h>
-#include <iostream>
 #include "ProgramLogic.h"
 
 DWORD WINAPI myThreadProc( HMODULE hInstDLL )
@@ -9,10 +7,7 @@ DWORD WINAPI myThreadProc( HMODULE hInstDLL )
 	freopen_s( &f, "CONOUT$", "w", stdout );
 	std::cout << "Yo! Hitbokx here.\n";
 
-	uintptr_t cModuleBase{ (uintptr_t)GetModuleHandle( L"client.dll" ) };
-	uintptr_t eModuleBase{ (uintptr_t)GetModuleHandle( L"engine.dll" ) };
-
-	Run( cModuleBase, eModuleBase );
+	Run( );
 
 	if ( f )
 		fclose( f );
@@ -28,7 +23,7 @@ BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved )
 		case DLL_PROCESS_ATTACH:
 
 			::DisableThreadLibraryCalls( hinstDLL );
-			CreateThread( nullptr, 0, LPTHREAD_START_ROUTINE( myThreadProc ), hinstDLL, 0, nullptr );
+			CloseHandle( CreateThread( nullptr, 0, LPTHREAD_START_ROUTINE( myThreadProc ), hinstDLL, 0, nullptr ) );
 			break;
 
 		case DLL_PROCESS_DETACH:

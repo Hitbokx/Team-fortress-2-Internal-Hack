@@ -1,13 +1,13 @@
 #pragma once
 #include "Classes.h"
 #include "Structs.h"
-#include <Windows.h>
+#include "Include.h"
 
-inline void TriggerBot( PlayerEnt* pLocalPlayer, uintptr_t cModuleBase, EntityList* pEntList, int numPlayers )
+inline void TriggerBot( PlayerEnt* pLocalPlayer, EntityList* pEntList, int numPlayers )
 {
 	if ( !bools.bShotNow )
 	{
-		*(uintptr_t*)(cModuleBase + offs.fAttack) &= ~force.attack;
+		*(uintptr_t*)(modBase.client + offs.fAttack) &= ~force.attack;
 
 		bools.bShotNow = !bools.bShotNow;
 	}
@@ -24,7 +24,7 @@ inline void TriggerBot( PlayerEnt* pLocalPlayer, uintptr_t cModuleBase, EntityLi
 
 	if ( bools.bShotNow )
 	{
-		*(uintptr_t*)(cModuleBase + offs.fAttack) |= force.attack;
+		*(uintptr_t*)(modBase.client + offs.fAttack) |= force.attack;
 		bools.bShotNow = !bools.bShotNow;
 	}
 }

@@ -72,9 +72,13 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)Lib\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(DXSDK_DIR)Include</IncludePath>
+    <LibraryPath>$(VC_LibraryPath_x86);$(WindowsSDK_LibraryPath_x86);$(DXSDK_DIR)Lib\x86</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -149,8 +153,14 @@
     <ClInclude Include="Aimbot.h" />
     <ClInclude Include="BunnyHop.h" />
     <ClInclude Include="Classes.h" />
+    <ClInclude Include="Draw.h" />
+    <ClInclude Include="DrawESP.h" />
+    <ClInclude Include="dxStuff.h" />
+    <ClInclude Include="ESP.h" />
+    <ClInclude Include="FindSig.h" />
     <ClInclude Include="Glow.h" />
     <ClInclude Include="HookingClass.h" />
+    <ClInclude Include="Include.h" />
     <ClInclude Include="Includes.h" />
     <ClInclude Include="ProgramLogic.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

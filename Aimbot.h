@@ -2,7 +2,7 @@
 #include "Classes.h"
 #include "Vector.h"
 #include "Structs.h"
-#include <Windows.h>
+#include "Include.h"
 
 #define PI 3.14159265358f
 
@@ -30,13 +30,14 @@ public:
 
 	void aimAt( Vector3* target )
 	{
-		static uintptr_t eModuleBase{ (uintptr_t)GetModuleHandle( L"engine.dll" ) };
-		static Vector3* viewAngles{ (Vector3*)(eModuleBase + offs.ViewAnglesW) };
+		static Vector3* viewAngles{ (Vector3*)(modBase.engine + offs.ViewAnglesW) };
 
 		Vector3 origin{ this->playerCoordinates };
 		Vector3 viewOffset{ this->viewOffset };
 
-		Vector3* myPos{ &(origin + viewOffset) };
+		Vector3 pos{ origin + viewOffset };
+
+		Vector3* myPos{ &pos };
 
 		Vector3 deltaVec{ Vector3( target->x - myPos->x, target->y - myPos->y, target->z - myPos->z ) };
 

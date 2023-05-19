@@ -12,7 +12,7 @@ bool isPlayerMoving( PlayerEnt* pLocalPlayer )
 		return false;
 }
 
-inline void BunnyHop( PlayerEnt* pLocalPlayer, uintptr_t cModuleBase )
+inline void BunnyHop( PlayerEnt* pLocalPlayer )
 {
 	if ( isPlayerMoving( pLocalPlayer ) )
 	{
@@ -20,11 +20,11 @@ inline void BunnyHop( PlayerEnt* pLocalPlayer, uintptr_t cModuleBase )
 		{
 			if ( pLocalPlayer->flag & FLAG.onGround )
 			{
-				*(uintptr_t*)(cModuleBase + offs.fJump) |= force.jump;
+				*(uintptr_t*)(modBase.client + offs.fJump) |= force.jump;
 			}
 			else
 			{
-				*(uintptr_t*)(cModuleBase + offs.fJump) &= ~force.jump;
+				*(uintptr_t*)(modBase.client + offs.fJump) &= ~force.jump;
 			}
 		}
 	}

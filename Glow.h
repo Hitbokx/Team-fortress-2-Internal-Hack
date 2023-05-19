@@ -4,13 +4,13 @@
 #define END_OF_FREE_LIST -1
 #define ENTRY_IN_USE -2
 
-void setTeamColour( GlowObjectDefinition_t& glowObject )
+void setTeamColour( GlowObjectDefinition_t& glowObject, int health )
 {
-	glowObject.m_vGlowColor = Vector3( 2.f, 0.f, 0.f );
+	glowObject.m_vGlowColor = Vector3( (health * 0.01), (health * -0.01 + 1), 0.f );
 	glowObject.m_flGlowAlpha = 1.7f;
 }
 
-void setEnemyColour( GlowObjectDefinition_t& glowObject )
+void setEnemyColour( GlowObjectDefinition_t& glowObject, int health)
 {
 	glowObject.m_vGlowColor = Vector3( 0.f, 0.f, 2.f );
 	glowObject.m_flGlowAlpha = 1.7f;
@@ -22,9 +22,9 @@ void resetColour( GlowObjectDefinition_t& glowObject )
 	glowObject.m_flGlowAlpha = 0.f;
 }
 
-void Glow(uintptr_t cModuleBase, EntityList* pEntList, PlayerEnt* pLocalPlayer )
+void Glow( EntityList* pEntList, PlayerEnt* pLocalPlayer )
 {
-	CGlowObjectManager* glowobjectManager{ (CGlowObjectManager*)(cModuleBase + offs.dwGlowObjectManager) };
+	CGlowObjectManager* glowobjectManager{ (CGlowObjectManager*)(modBase.client + offs.dwGlowObjectManager) };
 
 	for ( const auto & ent : pEntList->EntList )
 	{
@@ -58,16 +58,17 @@ void Glow(uintptr_t cModuleBase, EntityList* pEntList, PlayerEnt* pLocalPlayer )
 		if ( entity )
 		{
 			if ( entity->team == pLocalPlayer->team )
-				setTeamColour( glowobject );
+				setTeamColour( glowobject, entity->health );
+
 			else
-				setEnemyColour( glowobject );
+				setEnemyColour( glowobject, entity->health );
 		}
 	}
 }
 
-void unGlow( uintptr_t cModuleBase, EntityList* pEntList, PlayerEnt* pLocalPlayer )
+void unGlow( EntityList* pEntList, PlayerEnt* pLocalPlayer )
 {
-	CGlowObjectManager* glowobjectManager{ (CGlowObjectManager*)(cModuleBase + offs.dwGlowObjectManager) };
+	CGlowObjectManager* glowobjectManager{ (CGlowObjectManager*)(modBase.client + offs.dwGlowObjectManager) };
 
 	for ( const auto& ent : pEntList->EntList )
 	{

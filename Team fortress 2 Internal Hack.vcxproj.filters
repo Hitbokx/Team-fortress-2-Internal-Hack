@@ -26,9 +26,6 @@
     <ClInclude Include="HookingClass.h">
       <Filter>Utilities</Filter>
     </ClInclude>
-    <ClInclude Include="ProgramLogic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="BunnyHop.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -51,6 +48,27 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Aimbot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramLogic.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FindSig.h">
+      <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="Include.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="dxStuff.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ESP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawESP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

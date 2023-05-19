@@ -3,7 +3,7 @@
 #include "Structs.h"
 #include <Windows.h>
 
-void RecoilControl( uintptr_t cModuleBase, PlayerEnt* pLocalPlayer )
+void RecoilControl( PlayerEnt* pLocalPlayer )
 {
 
 }

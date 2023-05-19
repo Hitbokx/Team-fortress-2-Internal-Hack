@@ -8,3 +8,5 @@
 #include "HookingClass.h"
 #include "RecoilControlSystem.h"
 #include "Aimbot.h"
+#include "dxStuff.h"
+#include "ESP.h"
