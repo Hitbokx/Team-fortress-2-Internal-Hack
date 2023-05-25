@@ -3,7 +3,7 @@
 #include "Structs.h"
 #include "Include.h"
 
-inline void TriggerBot( PlayerEnt* pLocalPlayer, EntityList* pEntList, int numPlayers )
+inline void TriggerBot(  )
 {
 	if ( !bools.bShotNow )
 	{
@@ -12,13 +12,13 @@ inline void TriggerBot( PlayerEnt* pLocalPlayer, EntityList* pEntList, int numPl
 		bools.bShotNow = !bools.bShotNow;
 	}
 
-	if ( (pEntList->EntList[(pLocalPlayer->crossHairId) - 1].m_pEntity->team) == pLocalPlayer->team )
+	if ( ( hack.pEntList->EntList[(hack.pLocalPlayer->crossHairId) - 1].m_pEntity->team) == hack.pLocalPlayer->team )
 		return;
 
-	if ( (pEntList->EntList[(pLocalPlayer->crossHairId) - 1].m_pEntity->health) <= 0 )
+	if ( ( hack.pEntList->EntList[( hack.pLocalPlayer->crossHairId) - 1].m_pEntity->health) <= 0 )
 		return;
 	
-	if ( pLocalPlayer->crossHairId > numPlayers && pLocalPlayer->crossHairId <= 0 )
+	if ( hack.pLocalPlayer->crossHairId > hack.numPlayers && hack.pLocalPlayer->crossHairId <= 0 )
 		return;
 
 

@@ -21,8 +21,6 @@ BOOL WINAPI DllMain( HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved )
 	switch ( fdwReason )
 	{
 		case DLL_PROCESS_ATTACH:
-
-			::DisableThreadLibraryCalls( hinstDLL );
 			CloseHandle( CreateThread( nullptr, 0, LPTHREAD_START_ROUTINE( myThreadProc ), hinstDLL, 0, nullptr ) );
 			break;
 

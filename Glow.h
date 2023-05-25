@@ -22,13 +22,13 @@ void resetColour( GlowObjectDefinition_t& glowObject )
 	glowObject.m_flGlowAlpha = 0.f;
 }
 
-void Glow( EntityList* pEntList, PlayerEnt* pLocalPlayer )
+void Glow(  )
 {
 	CGlowObjectManager* glowobjectManager{ (CGlowObjectManager*)(modBase.client + offs.dwGlowObjectManager) };
 
-	for ( const auto & ent : pEntList->EntList )
+	for ( const auto & ent : hack.pEntList->EntList )
 	{
-		if ( !ent.m_pEntity || ent.m_pEntity == pLocalPlayer || ent.m_pEntity->bDormant )
+		if ( !ent.m_pEntity || ent.m_pEntity == hack.pLocalPlayer || ent.m_pEntity->bDormant )
 			continue;
 
 		if ( ent.m_pEntity )
@@ -49,7 +49,7 @@ void Glow( EntityList* pEntList, PlayerEnt* pLocalPlayer )
 
 		auto Index{ glowobject.m_hEntity.GetEntryIndex() };
 
-		CEntInfo* pInfo{ &pEntList->EntList[Index] };
+		CEntInfo* pInfo{ &hack.pEntList->EntList[Index] };
 
 		int serialNum{ glowobject.m_hEntity.GetSerialNumber( ) };
 
@@ -57,7 +57,7 @@ void Glow( EntityList* pEntList, PlayerEnt* pLocalPlayer )
 
 		if ( entity )
 		{
-			if ( entity->team == pLocalPlayer->team )
+			if ( entity->team == hack.pLocalPlayer->team )
 				setTeamColour( glowobject, entity->health );
 
 			else
@@ -66,11 +66,11 @@ void Glow( EntityList* pEntList, PlayerEnt* pLocalPlayer )
 	}
 }
 
-void unGlow( EntityList* pEntList, PlayerEnt* pLocalPlayer )
+void unGlow(  )
 {
 	CGlowObjectManager* glowobjectManager{ (CGlowObjectManager*)(modBase.client + offs.dwGlowObjectManager) };
 
-	for ( const auto& ent : pEntList->EntList )
+	for ( const auto& ent : hack.pEntList->EntList )
 	{
 		if ( ent.m_pEntity )
 		{

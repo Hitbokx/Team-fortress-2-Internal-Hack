@@ -144,3 +144,86 @@ public:
 	CUtlVector<GlowObjectDefinition_t> m_GlowObjectDefinitions;
 	int m_nFirstFreeSlot;
 };
+
+#define PI 3.14159265358f
+
+class Player :public PlayerEnt
+{
+public:
+
+	Vector3 GetBonePos( int boneID )
+	{
+		Vector3 bonePos{};
+
+		auto boneArrayAccess{ this->pBoneMatrix };
+
+		bonePos.x = (*boneArrayAccess)[boneID].matrix[3];
+		bonePos.y = (*boneArrayAccess)[boneID].matrix[7];
+		bonePos.z = (*boneArrayAccess)[boneID].matrix[11];
+
+		return bonePos;
+	}
+
+	Vector3 GetHeadBone( )
+	{
+		Vector3 headBonePos{ this->GetBonePos( 0 ) };
+		int j{ 0 };
+		for ( int i{ 0 }; i < 69; ++i )
+		{
+			Vector3 bonePos = this->GetBonePos( i );
+
+			if ( bonePos.x == 0 || bonePos.y == 0 || bonePos.z == 0 )
+				break;
+
+			if ( bonePos.z > headBonePos.z )
+			{
+				headBonePos = bonePos;
+				j = i;
+			}
+		}
+
+		if ( j == 27 )
+			headBonePos = this->GetBonePos( 6 );
+
+		return headBonePos;
+
+	}
+};
+
+class LocalPlayer :public PlayerEnt
+{
+public:
+
+	void aimAt( Vector3 target )
+	{
+		static Vector3* viewAngles{ (Vector3*)(modBase.engine + offs.ViewAnglesW) };
+
+		Vector3 origin{ this->playerCoordinates };
+		Vector3 viewOffset{ this->viewOffset };
+
+		Vector3 pos{ origin + viewOffset };
+
+		Vector3* myPos{ &pos };
+
+		Vector3 deltaVec{ Vector3( target.x - myPos->x, target.y - myPos->y, target.z - myPos->z ) };
+
+		float deltaVecLength{ sqrt( deltaVec.x * deltaVec.x + deltaVec.y * deltaVec.y + deltaVec.z * deltaVec.z ) };
+
+		float pitch{ -(asin( deltaVec.z / deltaVecLength ) * (180 / PI)) };
+		float yaw{ atan2( deltaVec.y, deltaVec.x ) * (180 / PI) };
+
+		if ( pitch >= -89 && pitch <= 89 && yaw >= -180 && yaw <= 180 )
+		{
+			viewAngles->x = pitch;
+			viewAngles->y = yaw;
+		}
+	}
+
+	float getDistance( Vector3 other )
+	{
+		Vector3 myPos{ this->playerCoordinates };
+		Vector3 delta{ Vector3( other.x - myPos.x, other.y - myPos.y, other.z - myPos.z ) };
+
+		return sqrt( delta.x * delta.x + delta.y * delta.y + delta.z * delta.z );
+	}
+};

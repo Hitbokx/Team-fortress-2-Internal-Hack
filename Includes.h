@@ -6,7 +6,6 @@
 #include "Classes.h"
 #include "Glow.h"
 #include "HookingClass.h"
-#include "RecoilControlSystem.h"
 #include "Aimbot.h"
-#include "dxStuff.h"
+#include "DirectXStuff.h"
 #include "ESP.h"

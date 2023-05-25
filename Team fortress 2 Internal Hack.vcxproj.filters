@@ -56,9 +56,6 @@
     <ClInclude Include="ESP.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="dxStuff.h">
-      <Filter>Drawing</Filter>
-    </ClInclude>
     <ClInclude Include="DrawESP.h">
       <Filter>Drawing</Filter>
     </ClInclude>
@@ -70,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="Includes.h">
       <Filter>Utilities</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectXStuff.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

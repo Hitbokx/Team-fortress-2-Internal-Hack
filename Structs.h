@@ -4,22 +4,8 @@
 #include "FindSig.h"
 #include "Include.h"
 
-struct Window
-{
-	int windowHeight;
-	int windowWidth;
-
-	HWND hWnd;
-};
-
-struct Directx
-{
-	void* d3d9Device[119];
-	void* oEndScene{ nullptr };
-	LPDIRECT3DDEVICE9 pDevice{ nullptr };
-
-	Window window;
-};
+class PlayerEnt;
+class EntityList;
 
 struct offsets_t
 {
@@ -51,7 +37,17 @@ struct bools_t
 	bool bShotNow{ true };
 	bool bGlowHack{ false };
 	bool bAimbot{ false };
+
+	bool bShowMenu{ false };
+	bool bShowTeamates{ true };
 	bool bSnapLines{ false };
+	bool bBox2D{ false };
+	bool bStatus2D{ false };
+	bool bStatusText{ false };
+	bool bBox3D{ false };
+	bool bVelEsp{ false };
+	bool bHeadlineEsp{ false };
+	bool bRcsCrosshair{ false };
 };
 
 struct values_t
@@ -88,10 +84,77 @@ struct Vector3Colour
 	float blue{};
 };
 
+namespace Colour
+{
+	D3DCOLOR health{ D3DCOLOR_ARGB( 255, 46, 139, 87 ) };
+	D3DCOLOR crosshair = { D3DCOLOR_ARGB( 255, 255, 255, 255 ) };
+	D3DCOLOR text{ D3DCOLOR_ARGB( 255, 255, 255, 255 ) };
+
+	namespace Ally
+	{
+		D3DCOLOR esp{ D3DCOLOR_ARGB( 255, 0, 255, 0 ) };
+		D3DCOLOR snapline{ D3DCOLOR_ARGB( 255, 0, 255, 0 ) };
+		D3DCOLOR velocity{ D3DCOLOR_ARGB( 255, 0, 0, 255 ) };
+		D3DCOLOR headline{ D3DCOLOR_ARGB( 255, 0, 0, 255 ) };
+	}
+
+	namespace Enemy
+	{
+		D3DCOLOR esp{ D3DCOLOR_ARGB( 255, 255, 0, 0 ) };
+		D3DCOLOR snapline{ D3DCOLOR_ARGB( 255, 255, 0, 0 ) };
+		D3DCOLOR velocity{ D3DCOLOR_ARGB( 255, 0, 255, 255 ) };
+		D3DCOLOR headline{ D3DCOLOR_ARGB( 255, 0, 255, 255 ) };
+	}
+}
+
+namespace Buttons
+{
+	DWORD bHop{ VK_NUMPAD0 };
+	DWORD triggerBotBtn{ VK_NUMPAD1 };
+	DWORD glowBtn{ VK_NUMPAD2 };
+	DWORD aimBotBtn{ VK_NUMPAD3 };
+
+	DWORD showTeamatesBtn{ VK_NUMPAD4 };
+	DWORD snapLinesBtn{ VK_NUMPAD5 };
+	DWORD box2DBtn{ VK_NUMPAD6 };
+	DWORD status2DBtn{ VK_NUMPAD7 };
+	DWORD statusTextBtn{ VK_NUMPAD8 };
+	DWORD box3DBtn{ VK_NUMPAD9 };
+	DWORD velEspBtn{ VK_F1 };
+	DWORD headlineEspBtn{ VK_F3 };
+	DWORD rcsCrosshairBtn{ VK_F4 };
+
+	DWORD showMenuBtn{ VK_INSERT };
+}
+
 inline offsets_t offs{};
 inline bools_t bools{};
 inline values_t val{};
 inline FLAG_t FLAG{};
 inline ForceMask_t force{};
 inline ModuleBases modBase{};
-static Directx directx{};
+
+struct Hack
+{
+	PlayerEnt* pLocalPlayer{ nullptr };
+	EntityList* pEntList{ nullptr };
+	int numPlayers{ 0 };
+	float viewMatrix[16]{};
+
+	void Init( )
+	{
+		PlayerEnt* pLocalPlayer{ *(PlayerEnt**)(modBase.client + offs.localPlayer) };
+		EntityList* pEntList{ *(EntityList**)(modBase.client + offs.entList) };
+		int numPlayers{ *(int*)(modBase.engine + offs.numPlayers) };
+	}
+
+	void Update( )
+	{
+		pLocalPlayer = *(PlayerEnt**)(modBase.client + offs.localPlayer);
+		pEntList = *(EntityList**)(modBase.client + offs.entList);
+		numPlayers = *(int*)(modBase.engine + offs.numPlayers);
+		memcpy( &viewMatrix, (PBYTE*)(modBase.engine + offs.dwViewMatrix), sizeof( viewMatrix ) );
+	}
+};
+
+inline Hack hack{};

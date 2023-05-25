@@ -153,9 +153,9 @@
     <ClInclude Include="Aimbot.h" />
     <ClInclude Include="BunnyHop.h" />
     <ClInclude Include="Classes.h" />
+    <ClInclude Include="DirectXStuff.h" />
     <ClInclude Include="Draw.h" />
     <ClInclude Include="DrawESP.h" />
-    <ClInclude Include="dxStuff.h" />
     <ClInclude Include="ESP.h" />
     <ClInclude Include="FindSig.h" />
     <ClInclude Include="Glow.h" />

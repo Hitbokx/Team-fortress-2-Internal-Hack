@@ -2,114 +2,109 @@
 #include "Includes.h"
 #include "Include.h"
 
+void checkButtons( )
+{
+	if ( GetAsyncKeyState( Buttons::bHop ) & 1 )
+		bools.bHop = !bools.bHop;
+
+	if ( GetAsyncKeyState( Buttons::triggerBotBtn ) & 1 )
+		bools.bTriggerBot = !bools.bTriggerBot;
+
+	if ( GetAsyncKeyState( Buttons::glowBtn ) & 1 )
+		bools.bGlowHack = !bools.bGlowHack;
+
+	if ( GetAsyncKeyState( Buttons::aimBotBtn ) & 1 )
+		bools.bAimbot = !bools.bAimbot;
+
+	if ( GetAsyncKeyState( Buttons::snapLinesBtn ) & 1 )
+		bools.bSnapLines = !bools.bSnapLines;
+
+	if ( GetAsyncKeyState( Buttons::showTeamatesBtn ) & 1 )
+		bools.bShowTeamates = !bools.bShowTeamates;
+
+	if ( GetAsyncKeyState( Buttons::status2DBtn ) & 1 )
+		bools.bStatus2D = !bools.bStatus2D;
+
+	if ( GetAsyncKeyState( Buttons::statusTextBtn ) & 1 )
+		bools.bStatusText = !bools.bStatusText;
+
+	if ( GetAsyncKeyState( Buttons::box2DBtn ) & 1 )
+		bools.bBox2D = !bools.bBox2D;
+
+	if ( GetAsyncKeyState( Buttons::box3DBtn ) & 1 )
+		bools.bBox3D = !bools.bBox3D;
+
+	if ( GetAsyncKeyState( Buttons::headlineEspBtn ) & 1 )
+		bools.bHeadlineEsp = !bools.bHeadlineEsp;
+
+	if ( GetAsyncKeyState( Buttons::velEspBtn ) & 1 )
+		bools.bVelEsp = !bools.bVelEsp;
+
+	if ( GetAsyncKeyState( Buttons::rcsCrosshairBtn ) & 1 )
+		bools.bRcsCrosshair = !bools.bRcsCrosshair;
+
+	if ( GetAsyncKeyState( Buttons::showMenuBtn ) & 1 )
+		bools.bShowMenu = !bools.bShowMenu;
+}
+
+void CleanUp( )
+{
+	if ( bools.bGlowHack )
+		unGlow( );
+
+	bools.bHop = false;
+	bools.bTriggerBot = false;
+	bools.bShotNow = false;
+	bools.bGlowHack = false;
+	bools.bAimbot = false;
+
+	bools.bShowMenu = false;
+	bools.bShowTeamates = false;
+	bools.bSnapLines = false;
+	bools.bBox2D = false;
+	bools.bStatus2D = false;
+	bools.bStatusText = false;
+	bools.bBox3D = false;
+	bools.bVelEsp = false;
+	bools.bHeadlineEsp = false;
+	bools.bRcsCrosshair = false;
+}
+
 void Run( )
 {
-	PlayerEnt* pLocalPlayer{ *(PlayerEnt**)(modBase.client + offs.localPlayer) };
-	EntityList* pEntList{ *(EntityList**)(modBase.client + offs.entList) };
-	int numPlayers{ *(int*)(modBase.engine + offs.numPlayers) };
+	hack.Init( );
+	ESP( );
 
 	while ( !(GetAsyncKeyState( VK_END ) & 1) )
 	{
-		pLocalPlayer = *(PlayerEnt**)(modBase.client + offs.localPlayer);
-		pEntList = *(EntityList**)(modBase.client + offs.entList);
-		numPlayers = *(int*)(modBase.engine + offs.numPlayers);
+		hack.Update( );
 
-		if ( GetAsyncKeyState( VK_NUMPAD0 ) & 1 )
-		{
-			if ( !bools.bHop )
-			{
-				std::cout << "B-Hop Enabled!\n";
-				bools.bHop = !bools.bHop;
-			}
-			else
-			{
-				std::cout << "B-Hop Disabled!\n";
-				bools.bHop = !bools.bHop;
-			}
-		}
+		checkButtons( );
 
-		if ( GetAsyncKeyState( VK_NUMPAD1 ) & 1 )
-		{
-			if ( !bools.bTriggerBot )
-			{
-				std::cout << "TriggerBot Enabled!\n";
-				bools.bTriggerBot = !bools.bTriggerBot;
-			}
-			else
-			{
-				std::cout << "TriggerBot Disabled!\n";
-				bools.bTriggerBot = !bools.bTriggerBot;
-			}
-		}
-
-		if ( GetAsyncKeyState( VK_NUMPAD2 ) & 1 )
-		{
-			if ( !bools.bGlowHack )
-			{
-				std::cout << "GlowHack Enabled!\n";
-				bools.bGlowHack = !bools.bGlowHack;
-			}
-			else
-			{
-				std::cout << "GlowHack Disabled!\n";
-				unGlow( pEntList, pLocalPlayer );
-				bools.bGlowHack = !bools.bGlowHack;
-			}
-		}
-
-		if ( GetAsyncKeyState( VK_NUMPAD3 ) & 1 )
-		{
-			if ( !bools.bAimbot )
-			{
-				std::cout << "Aimbot Enabled!\n";
-				bools.bAimbot = !bools.bAimbot;
-			}
-			else
-			{
-				std::cout << "Aimbot Disabled!\n";
-				bools.bAimbot = !bools.bAimbot;
-			}
-		}
-
-		if ( GetAsyncKeyState( VK_NUMPAD4 ) & 1 )
-		{
-			if ( !bools.bSnapLines )
-			{
-				std::cout << "Drawing ESP snaplines!\n";
-				ESP( );
-				bools.bSnapLines = !bools.bSnapLines;
-			}
-			else
-			{
-				std::cout << "ESP snaplines won't be Drawn!\n";
-				g_hook.unHook<7>( (BYTE*)directx.d3d9Device[42] );
-				bools.bSnapLines = !bools.bSnapLines;
-			}
-		}
-
-		if ( pLocalPlayer )
+		if ( hack.pLocalPlayer )
 		{
 			if ( bools.bHop )
-				BunnyHop( pLocalPlayer );
+				BunnyHop(  );
 
 			if ( bools.bTriggerBot )
-				TriggerBot( pLocalPlayer, pEntList, numPlayers );
+				TriggerBot(  );
 
 			if ( bools.bGlowHack )
-				Glow( pEntList, pLocalPlayer );
+				Glow(  );
 
 			if ( bools.bAimbot )
-				Aimbot( pLocalPlayer, pEntList, numPlayers );
+				Aimbot(  );
 		}
+
+		if ( !bools.bGlowHack )
+			unGlow( );
 
 		Sleep( 1 );
 	}
 
 	// Extra Check for disabling hook
 
-	if ( bools.bSnapLines )
-		g_hook.unHook<7>( (BYTE*)directx.d3d9Device[42] );
+	CleanUp( );
 
-	if( bools.bGlowHack )
-		unGlow( pEntList, pLocalPlayer );
+	Sleep( 1000 );
 }
