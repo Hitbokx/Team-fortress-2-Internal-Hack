@@ -4,6 +4,7 @@
 #include "Structs.h"
 #include "HookingClass.h"
 #include "DrawESP.h"
+#include "TraceLine.h"
 
 void APIENTRY HkEndScene( LPDIRECT3DDEVICE9 o_pDevice )
 {
@@ -19,6 +20,9 @@ void APIENTRY HkEndScene( LPDIRECT3DDEVICE9 o_pDevice )
 		PlayerEnt* currEnt{ (PlayerEnt*)(client.m_pEntity) };
 
 		if ( !CheckValidEnt( currEnt ) )
+			continue;
+
+		if ( !isVisible( currEnt ) )
 			continue;
 
 		D3DCOLOR espColour, snapLineColour, velColour, headLineColour;

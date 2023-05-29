@@ -226,4 +226,9 @@ public:
 
 		return sqrt( delta.x * delta.x + delta.y * delta.y + delta.z * delta.z );
 	}
+
+	Vector3 getEyePosition( )
+	{
+		return ( Vector3 )( hack.pLocalPlayer->playerCoordinates + hack.pLocalPlayer->viewOffset );
+	}
 };

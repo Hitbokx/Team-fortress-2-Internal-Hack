@@ -71,5 +71,11 @@
     <ClInclude Include="DirectXStuff.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TraceLineDefines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TraceLine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

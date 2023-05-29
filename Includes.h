@@ -9,3 +9,4 @@
 #include "Aimbot.h"
 #include "DirectXStuff.h"
 #include "ESP.h"
+#include "TraceLine.h"

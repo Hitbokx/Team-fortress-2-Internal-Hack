@@ -7,7 +7,7 @@
 
 class Draw
 {
-public:
+private:
 	ID3DXLine* LineL{ nullptr };
 	ID3DXFont* FontF{ nullptr };
 

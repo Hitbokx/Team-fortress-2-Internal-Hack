@@ -3,6 +3,7 @@
 #include <bitset>
 #include "FindSig.h"
 #include "Include.h"
+#include "TraceLineDefines.h"
 
 class PlayerEnt;
 class EntityList;
@@ -22,6 +23,8 @@ struct offsets_t
 	uintptr_t ViewAnglesW{ 0x46a5dc };
 	uintptr_t MaxClients{ 0x465d0c };
 	uintptr_t dwViewMatrix{ 0x59e9c8 };
+	uintptr_t dwTraceRay{ 0x16C860 };
+	uintptr_t dwIEngineTrace{ 0xC54D20 };
 };
 
 struct ModuleBases
@@ -140,12 +143,14 @@ struct Hack
 	EntityList* pEntList{ nullptr };
 	int numPlayers{ 0 };
 	float viewMatrix[16]{};
+	tTraceRay TraceRay{};
 
 	void Init( )
 	{
-		PlayerEnt* pLocalPlayer{ *(PlayerEnt**)(modBase.client + offs.localPlayer) };
-		EntityList* pEntList{ *(EntityList**)(modBase.client + offs.entList) };
-		int numPlayers{ *(int*)(modBase.engine + offs.numPlayers) };
+		pLocalPlayer = *(PlayerEnt**)(modBase.client + offs.localPlayer);
+		pEntList = *(EntityList**)(modBase.client + offs.entList);
+		numPlayers = *(int*)(modBase.engine + offs.numPlayers);
+		TraceRay = (tTraceRay)(modBase.engine + offs.dwTraceRay);
 	}
 
 	void Update( )
@@ -154,6 +159,7 @@ struct Hack
 		pEntList = *(EntityList**)(modBase.client + offs.entList);
 		numPlayers = *(int*)(modBase.engine + offs.numPlayers);
 		memcpy( &viewMatrix, (PBYTE*)(modBase.engine + offs.dwViewMatrix), sizeof( viewMatrix ) );
+		TraceRay = (tTraceRay)(modBase.engine + offs.dwTraceRay);
 	}
 };
 

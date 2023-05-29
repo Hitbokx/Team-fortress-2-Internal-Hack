@@ -169,6 +169,8 @@
       <DeploymentContent Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</DeploymentContent>
     </ClInclude>
     <ClInclude Include="Structs.h" />
+    <ClInclude Include="TraceLine.h" />
+    <ClInclude Include="TraceLineDefines.h" />
     <ClInclude Include="TriggerBot.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>

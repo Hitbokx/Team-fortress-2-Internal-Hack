@@ -1,4 +1,5 @@
 #pragma once
+
 #include "Include.h"
 
 template <typename T, typename I = int>
@@ -98,51 +99,212 @@ public:
 	float y{};
 	float z{};
 
-	Vector3( )
-	{
-		x = y = z = 0;
-	}
+public:
 
-	Vector3( float x, float y, float z )
-	{
-		this->x = x;
-		this->y = y;
-		this->z = z;
-	}
+    Vector3( void )
+    {
+        Invalidate( );
+    }
+    Vector3( float X, float Y, float Z )
+    {
+        x = X;
+        y = Y;
+        z = Z;
+    }
+    Vector3( const float* clr )
+    {
+        x = clr[0];
+        y = clr[1];
+        z = clr[2];
+    }
 
-	Vector3( Vector3& rhs )
-	{
-		this->x = rhs.x;
-		this->y = rhs.y;
-		this->z = rhs.z;
-	}
+    void Init( float ix = 0.0f, float iy = 0.0f, float iz = 0.0f )
+    {
+        x = ix; y = iy; z = iz;
+    }
+    bool IsValid( ) const
+    {
+        return std::isfinite( x ) && std::isfinite( y ) && std::isfinite( z );
+    }
+    void Invalidate( )
+    {
+        x = y = z = std::numeric_limits<float>::infinity( );
+    }
 
-	Vector3& operator=( const Vector3& rhs )
-	{
-		this->x = rhs.x;
-		this->y = rhs.y;
-		this->z = rhs.z;
+    float& operator[]( int i )
+    {
+        return ((float*)this)[i];
+    }
+    float operator[]( int i ) const
+    {
+        return ((float*)this)[i];
+    }
 
-		return *this;
-	}
+    void Zero( )
+    {
+        x = y = z = 0.0f;
+    }
 
-	~Vector3( ) = default;
+    bool operator==( const Vector3& src ) const
+    {
+        return (src.x == x) && (src.y == y) && (src.z == z);
+    }
+    bool operator!=( const Vector3& src ) const
+    {
+        return (src.x != x) || (src.y != y) || (src.z != z);
+    }
 
-	Vector3 operator + ( const Vector3& rhs ) const { return Vector3( x + rhs.x, y + rhs.y, z + rhs.z ); }
-	Vector3 operator - ( const Vector3& rhs ) const { return Vector3( x - rhs.x, y - rhs.y, z - rhs.z ); }
-	Vector3 operator * ( const float& rhs ) const { return Vector3( x * rhs, y * rhs, z * rhs ); }
-	Vector3 operator / ( const float& rhs ) const { return Vector3( x / rhs, y / rhs, z / rhs ); }
+    Vector3& operator+=( const Vector3& v )
+    {
+        x += v.x; y += v.y; z += v.z;
+        return *this;
+    }
+    Vector3& operator-=( const Vector3& v )
+    {
+        x -= v.x; y -= v.y; z -= v.z;
+        return *this;
+    }
+    Vector3& operator*=( float fl )
+    {
+        x *= fl;
+        y *= fl;
+        z *= fl;
+        return *this;
+    }
+    Vector3& operator*=( const Vector3& v )
+    {
+        x *= v.x;
+        y *= v.y;
+        z *= v.z;
+        return *this;
+    }
+    Vector3& operator/=( const Vector3& v )
+    {
+        x /= v.x;
+        y /= v.y;
+        z /= v.z;
+        return *this;
+    }
+    Vector3& operator+=( float fl )
+    {
+        x += fl;
+        y += fl;
+        z += fl;
+        return *this;
+    }
+    Vector3& operator/=( float fl )
+    {
+        x /= fl;
+        y /= fl;
+        z /= fl;
+        return *this;
+    }
+    Vector3& operator-=( float fl )
+    {
+        x -= fl;
+        y -= fl;
+        z -= fl;
+        return *this;
+    }
 
-	Vector3& operator += ( const Vector3& rhs ) { return *this = *this + rhs; }
-	Vector3& operator -= ( const Vector3& rhs ) { return *this = *this - rhs; }
-	Vector3& operator *= ( const float& rhs ) { return *this = *this * rhs; }
-	Vector3& operator /= ( const float& rhs ) { return *this = *this / rhs; }
+    void NormalizeInPlace( )
+    {
+        *this = Normalized( );
+    }
 
-	float Length( ) const
-	{
-		return sqrtf( x * x + y * y + z * z );
-	}
+    Vector3 Normalized( ) const
+    {
+        Vector3 res = *this;
+        float l = res.Length( );
+        if ( l != 0.0f ) {
+            res /= l;
+        }
+        else {
+            res.x = res.y = res.z = 0.0f;
+        }
+        return res;
+    }
 
+    float DistTo( const Vector3& vOther ) const
+    {
+        Vector3 delta;
+
+        delta.x = x - vOther.x;
+        delta.y = y - vOther.y;
+        delta.z = z - vOther.z;
+
+        return delta.Length( );
+    }
+
+    float DistToSqr( const Vector3& vOther ) const
+    {
+        Vector3 delta;
+
+        delta.x = x - vOther.x;
+        delta.y = y - vOther.y;
+        delta.z = z - vOther.z;
+
+        return delta.LengthSqr( );
+    }
+
+    float Dot( const Vector3& vOther ) const
+    {
+        return (x * vOther.x + y * vOther.y + z * vOther.z);
+    }
+    float Length( ) const
+    {
+        return sqrt( x * x + y * y + z * z );
+    }
+    float LengthSqr( void ) const
+    {
+        return (x * x + y * y + z * z);
+    }
+    float Length2D( ) const
+    {
+        return sqrt( x * x + y * y );
+    }
+
+    Vector3& operator=( const Vector3& vOther )
+    {
+        x = vOther.x; y = vOther.y; z = vOther.z;
+        return *this;
+    }
+
+    Vector3& operator=( Vector3& vOther )
+    {
+        x = vOther.x; y = vOther.y; z = vOther.z;
+        return *this;
+    }
+
+    Vector3 operator-( void ) const
+    {
+        return Vector3( -x, -y, -z );
+    }
+    Vector3 operator+( const Vector3& v ) const
+    {
+        return Vector3( x + v.x, y + v.y, z + v.z );
+    }
+    Vector3 operator-( const Vector3& v ) const
+    {
+        return Vector3( x - v.x, y - v.y, z - v.z );
+    }
+    Vector3 operator*( float fl ) const
+    {
+        return Vector3( x * fl, y * fl, z * fl );
+    }
+    Vector3 operator*( const Vector3& v ) const
+    {
+        return Vector3( x * v.x, y * v.y, z * v.z );
+    }
+    Vector3 operator/( float fl ) const
+    {
+        return Vector3( x / fl, y / fl, z / fl );
+    }
+    Vector3 operator/( const Vector3& v ) const
+    {
+        return Vector3( x / v.x, y / v.y, z / v.z );
+    }
+	
 	Vector3 Normalize( ) const
 	{
 		return *this * (1 / Length( ));
@@ -152,6 +314,52 @@ public:
 		return (*this - rhs).Length( );
 	}
 };
+
+void VectorClear( Vector3& a )
+{
+	a.x = a.y = a.z = 0.0f;
+}
+
+void VectorSubtract( const Vector3& a, const Vector3& b, Vector3& c )
+{
+	c.x = a.x - b.x;
+	c.y = a.y - b.y;
+	c.z = a.z - b.z;
+}
+
+void VectorCopy( const Vector3& src, Vector3& dst )
+{
+	dst.x = src.x;
+	dst.y = src.y;
+	dst.z = src.z;
+}
+
+#define DECL_ALIGN(x) __declspec(align(x))
+#define ALIGN16 DECL_ALIGN(16)
+#define ALIGN16_POST DECL_ALIGN(16)
+
+class ALIGN16 VectorAligned : public Vector3
+{
+public:
+	inline VectorAligned( void ) {};
+	inline VectorAligned( float X, float Y, float Z )
+	{
+		Init( X, Y, Z );
+	}
+
+	explicit VectorAligned( const Vector3& vOther )
+	{
+		Init( vOther.x, vOther.y, vOther.z );
+	}
+
+	VectorAligned& operator=( const Vector3& vOther )
+	{
+		Init( vOther.x, vOther.y, vOther.z );
+		return *this;
+	}
+
+	float w;	// this space is used anyway
+} ALIGN16_POST;
 
 struct Vector4
 {

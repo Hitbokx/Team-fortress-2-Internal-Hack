@@ -3,6 +3,7 @@
 #include "Vector.h"
 #include "Structs.h"
 #include "Include.h"
+#include "TraceLine.h"
 
 Player* getClosestEnemy(  )
 {
@@ -12,6 +13,9 @@ Player* getClosestEnemy(  )
 	for ( int i{ 1 }; i < hack.numPlayers; ++i )
 	{
 		Player* currPlayer{ (Player*)(hack.pEntList->EntList[i].m_pEntity) };
+
+		if ( !isVisible( currPlayer ) )
+			continue;
 
 		if ( (!currPlayer) || (!(*(uintptr_t*)currPlayer)) || ((uintptr_t)currPlayer == (uintptr_t)hack.pLocalPlayer))
 			continue;
