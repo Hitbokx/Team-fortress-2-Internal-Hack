@@ -14,10 +14,10 @@ Player* getClosestEnemy(  )
 	{
 		Player* currPlayer{ (Player*)(hack.pEntList->EntList[i].m_pEntity) };
 
-		if ( !isVisible( currPlayer ) )
+		if ( (!currPlayer) || (!(*(uintptr_t*)currPlayer)) || ((uintptr_t)currPlayer == (uintptr_t)hack.pLocalPlayer))
 			continue;
 
-		if ( (!currPlayer) || (!(*(uintptr_t*)currPlayer)) || ((uintptr_t)currPlayer == (uintptr_t)hack.pLocalPlayer))
+		if ( !isVisible( currPlayer ) )
 			continue;
 
 		if ( currPlayer->bDormant )

@@ -62,8 +62,8 @@ inline void drawSnapLines( Vector2 entPos2D, D3DCOLOR colour )
 inline void DrawCrossHair( )
 {
 	Vector2 crossHair2D;
-	crossHair2D.x = g_dxStuff.get( )->m_directX.window.windowWidth / 2;
-	crossHair2D.y = g_dxStuff.get( )->m_directX.window.windowHeight / 2;
+	crossHair2D.x = g_dxStuff.get( )->m_window.windowWidth / 2;
+	crossHair2D.y = g_dxStuff.get( )->m_window.windowHeight / 2;
 	int crossHairSize{ 4 };
 
 	Vector2 l, r, t, b;
