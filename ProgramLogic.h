@@ -91,9 +91,6 @@ void Run( )
 
 			if ( bools.bGlowHack )
 				Glow(  );
-
-			if ( bools.bAimbot )
-				Aimbot(  );
 		}
 
 		if ( !bools.bGlowHack )

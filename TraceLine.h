@@ -15,7 +15,7 @@ bool isVisible( PlayerEnt* ent )
 
 	void** pECX = (void**)(modBase.client + offs.dwIEngineTrace);
 
-	hack.TraceRay( *pECX, ray, MASK_SHOT | CONTENTS_GRATE, &traceFilter, &trace );
+	hack.TraceRay( *pECX, ray, MASK_NPCWORLDSTATIC | CONTENTS_SOLID | CONTENTS_MOVEABLE | CONTENTS_MONSTER | CONTENTS_WINDOW | CONTENTS_DEBRIS | CONTENTS_HITBOX, &traceFilter, &trace );
 
 	return (trace.hit_entity == ent);
 }

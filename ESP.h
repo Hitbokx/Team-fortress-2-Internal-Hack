@@ -22,9 +22,6 @@ void APIENTRY HkEndScene( LPDIRECT3DDEVICE9 o_pDevice )
 		if ( !CheckValidEnt( currEnt ) )
 			continue;
 
-		if ( !isVisible( currEnt ) )
-			continue;
-
 		D3DCOLOR espColour, snapLineColour, velColour, headLineColour;
 
 		if ( currEnt->team == hack.pLocalPlayer->team )
@@ -90,6 +87,10 @@ void APIENTRY HkEndScene( LPDIRECT3DDEVICE9 o_pDevice )
 
 	if ( bools.bRcsCrosshair )
 		DrawCrossHair( );
+
+	// Here for TraceLine
+	if ( bools.bAimbot )
+		Aimbot( );
 
 	g_oEndScene( g_dxStuff.get( )->m_directX.pDevice );
 }
